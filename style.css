@@ -1,149 +1,70 @@
-* {
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f8f9fa; color: #000000; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; }
+.app-container { width: 100%; max-width: 480px; background: #ffffff; position: relative; display: flex; flex-direction: column; min-height: 100vh; padding: 16px; padding-bottom: 80px; }
+h2 { font-size: 22px; font-weight: 700; margin-top: 5px; margin-bottom: 20px; letter-spacing: -0.5px; }
+.screen { display: none !important; flex-direction: column; width: 100%; }
+.screen.active { display: flex !important; }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #f8f9fa;
-    color: #000000;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-.app-container {
-    width: 100%;
-    max-width: 480px;
-    background: #ffffff;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 16px;
-    padding-bottom: 80px;
-}
-
-h2 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    letter-spacing: -0.5px;
-}
-
-.screen {
-    display: none !important;
-    flex-direction: column;
-    width: 100%;
-}
-.screen.active {
-    display: flex !important;
-}
-
-/* --- СТИЛИ ЭКРАНА: ТЕОРИЯ --- */
-.theory-card {
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-    border-radius: 16px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-.theory-card:active {
-    background-color: #f8f9fa;
-}
-.theory-icon {
-    font-size: 24px;
-    margin-right: 16px;
-    background: #f8f9fa;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/* --- ТЕОРИЯ --- */
+.theory-card { background: #ffffff; border: 1px solid #e9ecef; border-radius: 16px; padding: 16px; display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; }
+.theory-icon { font-size: 24px; margin-right: 16px; background: #f8f9fa; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
 .theory-info { flex: 1; }
-.theory-title { font-size: 15px; font-weight: 600; margin-bottom: 2px; color: #212529; }
-.theory-desc { font-size: 12px; color: #868e96; line-height: 1.4; padding-right: 10px; }
+.theory-title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.theory-desc { font-size: 12px; color: #868e96; line-height: 1.4; }
 .theory-arrow { color: #cbd5e1; font-size: 14px; }
+.theory-back-row { margin-bottom: 20px; }
+.btn-theory-back { background: none; border: none; color: #1c7ed6; font-size: 15px; font-weight: 600; cursor: pointer; }
+.math-block { background: #f1f3f5; border-left: 4px solid #1c7ed6; padding: 12px 16px; font-family: monospace; font-weight: 700; margin: 15px 0; border-radius: 4px; }
 
-/* Стили для открытой статьи теории */
-.theory-back-row {
-    margin-bottom: 20px;
-}
-.btn-theory-back {
-    background: none;
-    border: none;
-    color: #1c7ed6;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0;
-}
-.article-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    color: #0f172a;
-}
-.article-text {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #334155;
-    margin-bottom: 12px;
-}
-.math-block {
-    background: #f1f3f5;
-    border-left: 4px solid #1c7ed6;
-    padding: 12px 16px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 700;
-    font-size: 15px;
-    border-radius: 4px;
-    margin: 15px 0;
-    color: #1a1a1a;
-}
-
-/* --- СТИЛИ ЭКРАНА: ПРАКТИКА --- */
-.tabs-container { display: flex; background: #f1f3f5; border-radius: 12px; padding: 4px; margin-bottom: 15px; }
-.tab-btn { flex: 1; background: none; border: none; padding: 10px 4px; font-size: 13px; font-weight: 500; border-radius: 10px; cursor: pointer; color: #495057; }
-.tab-btn.active { background: #ffffff; color: #000000; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-.tab-count { font-size: 11px; color: #1c7ed6; margin-left: 4px; font-weight: 700; }
-.info-row { display: flex; justify-content: space-between; font-size: 13px; margin-top: 15px; margin-bottom: 10px; }
-.info-date { font-weight: 600; }
-.info-timer { color: #1c7ed6; font-weight: 500; }
-.task-card { background: #ffffff; border: 1px solid #e9ecef; border-radius: 16px; padding: 16px; display: flex; align-items: center; }
-.task-icon-box { position: relative; margin-right: 16px; background: #f8f9fa; width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-.task-icon { font-size: 24px; }
-.task-subcount { position: absolute; bottom: -6px; background: #f1f3f5; border: 1px solid #dee2e6; font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 8px; }
-.task-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
-.task-subject { font-size: 12px; color: #868e96; }
+/* --- ПРАКТИКА --- */
+.practice-topic-card { background: #ffffff; border: 1px solid #e9ecef; border-radius: 16px; padding: 16px; display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; }
+.practice-icon-box { font-size: 22px; margin-right: 16px; background: #e7f5ff; color: #1c7ed6; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.practice-info { flex: 1; }
+.practice-title { font-size: 15px; font-weight: 600; color: #212529; }
+.practice-subtitle { font-size: 12px; color: #868e96; margin-top: 2px; }
+.practice-arrow { color: #cbd5e1; font-size: 14px; }
+.back-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn-back { font-size: 15px; font-weight: 600; color: #868e96; background: none; border: none; cursor: pointer; }
+.test-timer { font-size: 12px; color: #868e96; text-align: right; }
+.test-subtitle { font-size: 13px; color: #868e96; margin-bottom: 6px; }
+.test-question-text { font-size: 16px; font-weight: 600; line-height: 1.5; margin-bottom: 25px; color: #212529; }
+.test-options { border: 1px solid #e9ecef; border-radius: 14px; background: #ffffff; overflow: hidden; margin-bottom: 30px; }
+.option-item { display: flex; align-items: center; padding: 15px 16px; border-bottom: 1px solid #e9ecef; cursor: pointer; }
+.option-item:last-child { border-bottom: none; }
+.radio-circle { width: 20px; height: 20px; border: 2px solid #ced4da; border-radius: 50%; margin-right: 14px; }
+.option-item.selected .radio-circle { border-color: #1c7ed6; background: #1c7ed6; box-shadow: inset 0 0 0 4px #ffffff; }
+.option-item.correct-answer { background-color: #ebfbee; color: #2b8a3e; }
+.option-item.correct-answer .radio-circle { border-color: #2b8a3e; background: #2b8a3e; box-shadow: inset 0 0 0 4px #ffffff; }
+.option-item.wrong-answer { background-color: #fff5f5; color: #c92a2a; }
+.option-item.wrong-answer .radio-circle { border-color: #c92a2a; background: #c92a2a; box-shadow: inset 0 0 0 4px #ffffff; }
+.test-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+.btn-submit { background: #e9ecef; color: #adb5bd; border: none; padding: 14px 35px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: not-allowed; }
+.btn-submit.active { background: #1c7ed6; color: #ffffff; cursor: pointer; }
+.btn-submit.correct-btn { background: #2b8a3e !important; color: #ffffff !important; }
+.btn-submit.wrong-btn { background: #c92a2a !important; color: #ffffff !important; }
+.test-progress-counter { font-size: 15px; font-weight: 600; color: #495057; }
 
 /* --- СТИЛИ ЭКРАНА: РЕЙТИНГ --- */
 .rating-list { display: flex; flex-direction: column; gap: 10px; }
 .rating-item { display: flex; align-items: center; padding: 14px 16px; border: 1px solid #e9ecef; border-radius: 14px; background: #ffffff; }
-.rating-item.top-user { border-color: #74c0fc; background: #e7f5ff; }
+.rating-item.top-three { background: #fff9db; border-color: #fab005; } /* Золотистый оттенок для лидеров */
+.rating-item.top-user { border-color: #74c0fc; background: #e7f5ff; font-weight: 600; } /* Синий фон для «Вы» */
 .rating-num { font-size: 16px; font-weight: 700; width: 30px; }
 .rating-name { font-size: 15px; font-weight: 600; flex: 1; }
-.rating-points { font-size: 13px; color: #495057; font-weight: 500; }
+.rating-points { font-size: 13px; color: #495057; font-weight: 600; }
 
 /* --- СТИЛИ ЭКРАНА: ПРОФИЛЬ + СТАТИСТИКА --- */
 .profile-stat-box { display: flex; align-items: center; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; padding: 16px; margin-bottom: 25px; }
-.circle-wrapper { width: 70px; height: 70px; border: 5px solid #e7f5ff; border-top-color: #1c7ed6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; }
+.circle-wrapper { width: 72px; height: 72px; border: 6px solid #e7f5ff; border-top-color: #1c7ed6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; background: #ffffff; }
 .circle-text { font-size: 15px; font-weight: 700; color: #1c7ed6; }
 .stat-score { font-size: 16px; font-weight: 700; color: #000000; }
-.profile-title { font-size: 13px; color: #868e96; margin-bottom: 6px; }
-.profile-list { padding-left: 18px; font-size: 15px; font-weight: 500; margin-bottom: 20px; }
-.btn-manager { width: 100%; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 10px; }
+.profile-section-title { font-size: 13px; color: #868e96; margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.profile-course-badge { background: #f1f3f5; border: 1px solid #dee2e6; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 500; margin-bottom: 20px; color: #212529; }
+.profile-desc { font-size: 14px; line-height: 1.5; color: #495057; margin-bottom: 20px; }
+.btn-manager { width: 100%; background: #ffffff; border: 1px solid #cbd5e1; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; color: #0f172a; }
+.btn-manager:active { background-color: #f8f9fa; }
 
-/* --- НИЖНЕЕ МЕНЮ (ТАББАР) --- */
+/* --- ТАББАР --- */
 .nav-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: 65px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; align-items: center; z-index: 9999; }
 .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; cursor: pointer; font-size: 11px; font-weight: 500; flex: 1; height: 100%; }
 .nav-item.active { color: #000000; }
