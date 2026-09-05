@@ -53,6 +53,10 @@ h2 {
     align-items: center;
     margin-bottom: 12px;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+.theory-card:active {
+    background-color: #f8f9fa;
 }
 .theory-icon {
     font-size: 24px;
@@ -65,34 +69,52 @@ h2 {
     align-items: center;
     justify-content: center;
 }
-.theory-title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
-.theory-desc { font-size: 12px; color: #868e96; line-height: 1.4; }
+.theory-info { flex: 1; }
+.theory-title { font-size: 15px; font-weight: 600; margin-bottom: 2px; color: #212529; }
+.theory-desc { font-size: 12px; color: #868e96; line-height: 1.4; padding-right: 10px; }
+.theory-arrow { color: #cbd5e1; font-size: 14px; }
 
-/* --- СТИЛИ ЭКРАНА: ПРАКТИКА --- */
-.tabs-container {
-    display: flex;
-    background: #f1f3f5;
-    border-radius: 12px;
-    padding: 4px;
-    margin-bottom: 15px;
+/* Стили для открытой статьи теории */
+.theory-back-row {
+    margin-bottom: 20px;
 }
-.tab-btn {
-    flex: 1;
+.btn-theory-back {
     background: none;
     border: none;
-    padding: 10px 4px;
-    font-size: 13px;
-    font-weight: 500;
-    border-radius: 10px;
-    cursor: pointer;
-    color: #495057;
-}
-.tab-btn.active {
-    background: #ffffff;
-    color: #000000;
+    color: #1c7ed6;
+    font-size: 15px;
     font-weight: 600;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    cursor: pointer;
+    padding: 0;
 }
+.article-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #0f172a;
+}
+.article-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 12px;
+}
+.math-block {
+    background: #f1f3f5;
+    border-left: 4px solid #1c7ed6;
+    padding: 12px 16px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 4px;
+    margin: 15px 0;
+    color: #1a1a1a;
+}
+
+/* --- СТИЛИ ЭКРАНА: ПРАКТИКА --- */
+.tabs-container { display: flex; background: #f1f3f5; border-radius: 12px; padding: 4px; margin-bottom: 15px; }
+.tab-btn { flex: 1; background: none; border: none; padding: 10px 4px; font-size: 13px; font-weight: 500; border-radius: 10px; cursor: pointer; color: #495057; }
+.tab-btn.active { background: #ffffff; color: #000000; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
 .tab-count { font-size: 11px; color: #1c7ed6; margin-left: 4px; font-weight: 700; }
 .info-row { display: flex; justify-content: space-between; font-size: 13px; margin-top: 15px; margin-bottom: 10px; }
 .info-date { font-weight: 600; }
@@ -112,27 +134,9 @@ h2 {
 .rating-name { font-size: 15px; font-weight: 600; flex: 1; }
 .rating-points { font-size: 13px; color: #495057; font-weight: 500; }
 
-/* --- СТИЛИ ЭКРАНА: ПРОФИЛЬ + КРУГ СТАТИСТИКИ --- */
-.profile-stat-box {
-    display: flex;
-    align-items: center;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 20px;
-    padding: 16px;
-    margin-bottom: 25px;
-}
-.circle-wrapper {
-    width: 70px;
-    height: 70px;
-    border: 5px solid #e7f5ff;
-    border-top-color: #1c7ed6; /* Имитация прогресс-бара */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-}
+/* --- СТИЛИ ЭКРАНА: ПРОФИЛЬ + СТАТИСТИКА --- */
+.profile-stat-box { display: flex; align-items: center; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 20px; padding: 16px; margin-bottom: 25px; }
+.circle-wrapper { width: 70px; height: 70px; border: 5px solid #e7f5ff; border-top-color: #1c7ed6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px; }
 .circle-text { font-size: 15px; font-weight: 700; color: #1c7ed6; }
 .stat-score { font-size: 16px; font-weight: 700; color: #000000; }
 .profile-title { font-size: 13px; color: #868e96; margin-bottom: 6px; }
@@ -140,21 +144,7 @@ h2 {
 .btn-manager { width: 100%; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; margin-top: 10px; }
 
 /* --- НИЖНЕЕ МЕНЮ (ТАББАР) --- */
-.nav-bar {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    height: 65px;
-    background: #ffffff;
-    border-top: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: 9999;
-}
+.nav-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; height: 65px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-around; align-items: center; z-index: 9999; }
 .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; cursor: pointer; font-size: 11px; font-weight: 500; flex: 1; height: 100%; }
 .nav-item.active { color: #000000; }
 .nav-icon { font-size: 22px; margin-bottom: 2px; }
