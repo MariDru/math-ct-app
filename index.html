@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Тренажер ЦТ</title>
-    <!-- Подключаем наш внешний файл стилей CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app-container">
 
-    <!-- ЭКРАН 1: ЗАДАНИЯ (У него сейчас стоит класс active, поэтому он виден) -->
-    <div id="screen-tasks" class="screen active">
+    <!-- 1. ЭКРАН: ТЕОРИЯ (По умолчанию активный при старте) -->
+    <div id="screen-theory" class="screen active">
+        <h2>Учебные материалы</h2>
+        <div class="theory-card">
+            <div class="theory-icon">📖</div>
+            <div class="theory-info">
+                <div class="theory-title">Тригонометрические формулы</div>
+                <div class="theory-desc">Все формулы приведения, синусы и косинусы для ЦТ</div>
+            </div>
+        </div>
+        <div class="theory-card">
+            <div class="theory-icon">🎥</div>
+            <div class="theory-info">
+                <div class="theory-title">Видеоразбор: Квадратные уравнения</div>
+                <div class="theory-desc">Смотреть урок (15 минут)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ЭКРАН: ПРАКТИКА -->
+    <div id="screen-practice" class="screen">
         <h2>Мои домашние задания</h2>
-        
         <div class="tabs-container">
             <div class="tab-btn active">Предстоящие <span class="tab-count">11</span></div>
             <div class="tab-btn">Активные <span class="tab-count" style="color: #495057;">3</span></div>
@@ -25,61 +42,70 @@
             <div>Откроется <span class="info-date">7 сентября, 19:00</span></div>
             <div class="info-timer">2 дня и 07:01:03</div>
         </div>
-        
         <div class="task-card">
-            <div class="task-icon-box">
-                <span class="task-icon">🎲</span>
-                <span class="task-subcount">40</span>
-            </div>
+            <div class="task-icon-box"><span class="task-icon">🎲</span><span class="task-subcount">40</span></div>
             <div class="task-info">
                 <div class="task-title">ДЗ 3. Сентябрьский курс</div>
                 <div class="task-subject">Математика</div>
             </div>
         </div>
+    </div>
 
-        <div class="task-card">
-            <div class="task-icon-box">
-                <span class="task-icon">🎲</span>
-                <span class="task-subcount">39</span>
+    <!-- 3. ЭКРАН: РЕЙТИНГ -->
+    <div id="screen-rating" class="screen">
+        <h2>Таблица лидеров</h2>
+        <div class="rating-list">
+            <div class="rating-item top-user">
+                <span class="rating-num">🥇</span>
+                <span class="rating-name">Мария В. (Вы)</span>
+                <span class="rating-points">2450 очков</span>
             </div>
-            <div class="task-info">
-                <div class="task-title">Доп. 3. Сентябрьский курс</div>
-                <div class="task-subject">Математика</div>
+            <div class="rating-item">
+                <span class="rating-num">2</span>
+                <span class="rating-name">Иван К.</span>
+                <span class="rating-points">2100 очков</span>
             </div>
-        </div>
-
-        <div class="info-row" style="margin-top: 10px;">
-            <div>Откроется <span class="info-date">9 сентября, 19:00</span></div>
-            <div class="info-timer">4 дня и 07:01:03</div>
-        </div>
-        
-        <div class="task-card">
-            <div class="task-icon-box">
-                <span class="task-icon">🎲</span>
-                <span class="task-subcount">28</span>
-            </div>
-            <div class="task-info">
-                <div class="task-title">ДЗ 4. Сентябрьский курс</div>
-                <div class="task-subject">Математика</div>
+            <div class="rating-item">
+                <span class="rating-num">3</span>
+                <span class="rating-name">Анна Д.</span>
+                <span class="rating-points">1950 очков</span>
             </div>
         </div>
     </div>
 
-    <!-- Будущие пустые контейнеры для остальных экранов (пока без контента) -->
-    <div id="screen-chats" class="screen"></div>
-    <div id="screen-statistics" class="screen"></div>
-    <div id="screen-profile" class="screen"></div>
+    <!-- 4. ЭКРАН: ПРОФИЛЬ + СТАТИСТИКА -->
+    <div id="screen-profile" class="screen">
+        <h2>Мой профиль</h2>
+        
+        <!-- Блок статистики внутри профиля -->
+        <div class="profile-stat-box">
+            <div class="circle-wrapper">
+                <div class="circle-text">78%</div>
+            </div>
+            <div class="stat-info-text">
+                <div class="stat-score">✦ 1,450 очков всего</div>
+                <div style="font-size: 13px; color: #868e96; margin-top: 4px;">Курс: Математика ЦТ</div>
+            </div>
+        </div>
 
-    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ (ТАББАР) -->
+        <div class="profile-title">Мои активные курсы</div>
+        <ul class="profile-list">
+            <li>Математика (Сентябрьский поток)</li>
+        </ul>
+        
+        <button class="btn-manager">Написать куратору</button>
+    </div>
+
+    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ (Слева направо: Теория, Практика, Рейтинг, Профиль) -->
     <div class="nav-bar">
-        <div class="nav-item active" onclick="switchTab('tasks', this)">
-            <span class="nav-icon">📅</span><span>Задания</span>
+        <div class="nav-item active" onclick="switchTab('theory', this)">
+            <span class="nav-icon">📚</span><span>Теория</span>
         </div>
-        <div class="nav-item" onclick="switchTab('chats', this)">
-            <span class="nav-icon">💬</span><span>Чаты</span>
+        <div class="nav-item" onclick="switchTab('practice', this)">
+            <span class="nav-icon">🎯</span><span>Практика</span>
         </div>
-        <div class="nav-item" onclick="switchTab('statistics', this)">
-            <span class="nav-icon">✦</span><span>Статистика</span>
+        <div class="nav-item" onclick="switchTab('rating', this)">
+            <span class="nav-icon">🏆</span><span>Рейтинг</span>
         </div>
         <div class="nav-item" onclick="switchTab('profile', this)">
             <span class="nav-icon">👤</span><span>Профиль</span>
@@ -89,19 +115,13 @@
 </div>
 
 <script>
-    // Простой скрипт для переключения экранов
     function switchTab(screenName, element) {
-        // 1. Прячем вообще все блоки с классом .screen
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        // 2. Делаем серыми все иконки в меню
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         
-        // 3. Показываем именно тот экран, на который нажали
         document.getElementById('screen-' + screenName).classList.add('active');
-        // 4. Подсвечиваем нажатую иконку черным цветом
         element.classList.add('active');
     }
 </script>
-
 </body>
 </html>
