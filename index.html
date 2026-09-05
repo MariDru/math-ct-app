@@ -12,189 +12,201 @@
 
     <!-- 1. ЭКРАН: ТЕОРИЯ -->
     <div id="screen-theory" class="screen active">
-        
-        <!-- ПОД-ЭКРАН А: СПИСОК ТЕМ (Виден изначально) -->
         <div id="theory-topics-list">
             <h2>Учебные материалы</h2>
-            
             <div class="theory-card" onclick="openTheoryText('trig')">
                 <div class="theory-icon">📐</div>
-                <div class="theory-info">
-                    <div class="theory-title">Тригонометрические формулы</div>
-                    <div class="theory-desc">Все формулы приведения, синусы, косинусы и тождества для ЦТ</div>
-                </div>
+                <div class="theory-info"><div class="theory-title">Тригонометрические формулы</div><div class="theory-desc">Все формулы приведения, синусы, косинусы и тождества для ЦТ</div></div>
                 <div class="theory-arrow">➔</div>
             </div>
-            
             <div class="theory-card" onclick="openTheoryText('eq')">
                 <div class="theory-icon">🧮</div>
-                <div class="theory-info">
-                    <div class="theory-title">Квадратные уравнения</div>
-                    <div class="theory-desc">Дискриминант, теорема Виета и свойства коэффициентов</div>
-                </div>
-                <div class="theory-arrow">➔</div>
-            </div>
-            
-            <div class="theory-card" onclick="openTheoryText('geom')">
-                <div class="theory-icon">📐</div>
-                <div class="theory-info">
-                    <div class="theory-title">Площади фигур</div>
-                    <div class="theory-desc">Формулы площадей треугольников, четырехугольников и круга</div>
-                </div>
+                <div class="theory-info"><div class="theory-title">Квадратные уравнения</div><div class="theory-desc">Дискриминант, теорема Виета и свойства коэффициентов</div></div>
                 <div class="theory-arrow">➔</div>
             </div>
         </div>
-
-        <!-- ПОД-ЭКРАН Б: ЧТЕНИЕ ТЕКСТА СТАТЬИ (По умолчанию скрыт) -->
         <div id="theory-article-view" style="display: none;">
-            <div class="theory-back-row">
-                <button class="btn-theory-back" onclick="closeTheoryText()">← Назад к темам</button>
-            </div>
-            
-            <!-- Сюда JavaScript будет подставлять нужный текст конспекта -->
+            <div class="theory-back-row"><button class="btn-theory-back" onclick="closeTheoryText()">← Назад к темам</button></div>
             <div id="article-content"></div>
         </div>
-
     </div>
 
     <!-- 2. ЭКРАН: ПРАКТИКА -->
     <div id="screen-practice" class="screen">
-        <h2>Мои домашние задания</h2>
-        <div class="tabs-container">
-            <div class="tab-btn active">Предстоящие <span class="tab-count">11</span></div>
-            <div class="tab-btn">Активные <span class="tab-count" style="color: #495057;">3</span></div>
-            <div class="tab-btn">Прошедшие <span class="tab-count" style="color: #868e96;">0</span></div>
+        <div id="practice-topics-list">
+            <h2>Практические задания</h2>
+            <div class="practice-topic-card" onclick="startPractice('trig')">
+                <div class="practice-icon-box">🎯</div>
+                <div class="practice-info"><div class="practice-title">Тригонометрия</div><div class="practice-subtitle">Задания А4-А6 уровня ЦТ</div></div>
+                <div class="practice-arrow">➔</div>
+            </div>
+            <div class="practice-topic-card" onclick="startPractice('eq')">
+                <div class="practice-icon-box">🎯</div>
+                <div class="practice-info"><div class="practice-title">Квадратные уравнения</div><div class="practice-subtitle">Поиск корней и свойства коэффициентов</div></div>
+                <div class="practice-arrow">➔</div>
+            </div>
         </div>
-
-        <div class="info-row">
-            <div>Откроется <span class="info-date">7 сентября, 19:00</span></div>
-            <div class="info-timer">2 дня и 07:01:03</div>
-        </div>
-        <div class="task-card">
-            <div class="task-icon-box"><span class="task-icon">🎲</span><span class="task-subcount">40</span></div>
-            <div class="task-info">
-                <div class="task-title">ДЗ 3. Сентябрьский курс</div>
-                <div class="task-subject">Математика</div>
+        <div id="practice-test-view" style="display: none;">
+            <div class="back-row">
+                <button class="btn-back" onclick="closePractice()">← Назад</button>
+                <div class="test-timer">Режим:<br><b>Тренировка</b></div>
+            </div>
+            <div class="test-subtitle" id="test-topic-name">Тема задания</div>
+            <div class="test-question-text" id="test-question-text">Текст вопроса</div>
+            <div class="test-options" id="test-options-container"></div>
+            <div class="test-footer">
+                <button class="btn-submit" id="submit-btn" disabled onclick="submitAnswer()">Ответить</button>
+                <div class="test-progress-counter" id="test-counter">1 / 1</div>
             </div>
         </div>
     </div>
 
-    <!-- 3. ЭКРАН: РЕЙТИНГ -->
+    <!-- 3. ЭКРАН: РЕЙТИНГ (Наполненный) -->
     <div id="screen-rating" class="screen">
         <h2>Таблица лидеров</h2>
         <div class="rating-list">
-            <div class="rating-item top-user">
+            <div class="rating-item top-three">
                 <span class="rating-num">🥇</span>
+                <span class="rating-name">Алексей М.</span>
+                <span class="rating-points">2,900 очков</span>
+            </div>
+            <div class="rating-item top-three">
+                <span class="rating-num">🥈</span>
+                <span class="rating-name">Дмитрий Т.</span>
+                <span class="rating-points">2,650 очков</span>
+            </div>
+            <div class="rating-item top-user">
+                <span class="rating-num">🥉</span>
                 <span class="rating-name">Мария В. (Вы)</span>
-                <span class="rating-points">2450 очков</span>
+                <span class="rating-points">2,450 очков</span>
             </div>
             <div class="rating-item">
-                <span class="rating-num">2</span>
+                <span class="rating-num">4</span>
                 <span class="rating-name">Иван К.</span>
-                <span class="rating-points">2100 очков</span>
+                <span class="rating-points">2,100 очков</span>
+            </div>
+            <div class="rating-item">
+                <span class="rating-num">5</span>
+                <span class="rating-name">Анна Д.</span>
+                <span class="rating-points">1,950 очков</span>
             </div>
         </div>
     </div>
 
-    <!-- 4. ЭКРАН: ПРОФИЛЬ + СТАТИСТИКА -->
+    <!-- 4. ЭКРАН: ПРОФИЛЬ + СТАТИСТИКА (Полный контент) -->
     <div id="screen-profile" class="screen">
         <h2>Мой профиль</h2>
+        
+        <!-- Красивый блок статистики -->
         <div class="profile-stat-box">
-            <div class="circle-wrapper"><div class="circle-text">78%</div></div>
+            <div class="circle-wrapper">
+                <div class="circle-text">78%</div>
+            </div>
             <div class="stat-info-text">
-                <div class="stat-score">✦ 1,450 очков всего</div>
-                <div style="font-size: 13px; color: #868e96; margin-top: 4px;">Курс: Математика ЦТ</div>
+                <div class="stat-score">✦ 2,450 очков</div>
+                <div style="font-size: 13px; color: #868e96; margin-top: 4px;">Предмет: Математика ЦТ</div>
             </div>
         </div>
-        <div class="profile-title">Мои активные курсы</div>
-        <ul class="profile-list"><li>Математика (Сентябрьский поток)</li></ul>
-        <button class="btn-manager">Написать куратору</button>
+
+        <div class="profile-section-title">Мои активные курсы</div>
+        <div class="profile-course-badge">🚀 Сентябрьский интенсив ЦТ/ЦЭ</div>
+
+        <div class="profile-desc">
+            Если вам нужна помощь по домашним заданиям, теории или вы хотите продлить доступ к курсу, вы можете связаться напрямую со своим куратором.
+        </div>
+        
+        <button class="btn-manager" onclick="window.open('https://t.me', '_blank')">💬 Написать куратору</button>
     </div>
 
     <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ -->
     <div class="nav-bar">
-        <div class="nav-item active" onclick="switchTab('theory', this)">
-            <span class="nav-icon">📚</span><span>Теория</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('practice', this)">
-            <span class="nav-icon">🎯</span><span>Практика</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('rating', this)">
-            <span class="nav-icon">🏆</span><span>Рейтинг</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('profile', this)">
-            <span class="nav-icon">👤</span><span>Профиль</span>
-        </div>
+        <div class="nav-item active" onclick="switchTab('theory', this)"><span class="nav-icon">📚</span><span>Теория</span></div>
+        <div class="nav-item" onclick="switchTab('practice', this)"><span class="nav-icon">🎯</span><span>Практика</span></div>
+        <div class="nav-item" onclick="switchTab('rating', this)"><span class="nav-icon">🏆</span><span>Рейтинг</span></div>
+        <div class="nav-item" onclick="switchTab('profile', this)"><span class="nav-icon">👤</span><span>Профиль</span></div>
     </div>
 
 </div>
 
 <script>
-    // База данных конспектов
     const theoryDatabase = {
-        trig: `
-            <h1 class="article-title">Тригонометрические формулы</h1>
-            <p class="article-text">Тригонометрия в ЦТ встречается в каждом третьем тесте. Основное, что нужно железно знать — это <b>Основное тригонометрическое тождество:</b></p>
-            <div class="math-block">sin²(x) + cos²(x) = 1</div>
-            <p class="article-text"><b>Формулы двойного угла:</b></p>
-            <div class="math-block">sin(2x) = 2 · sin(x) · cos(x)<br>cos(2x) = cos²(x) - sin²(x)</div>
-            <p class="article-text">Совет для ЦТ: если видишь большие градусы (например, 120° или 300°), всегда используй <i>формулы приведения</i>, чтобы свести их к острым углам.</p>
-        `,
-        eq: `
-            <h1 class="article-title">Квадратные уравнения</h1>
-            <p class="article-text">Для стандартного уравнения вида <b>ax² + bx + c = 0</b> корни ищутся через дискриминант:</p>
-            <div class="math-block">D = b² - 4ac</div>
-            <p class="article-text"><b>Количество корней:</b></p>
-            <ul>
-                <li>Если D > 0 — два разных корня.</li>
-                <li>Если D = 0 — один корень (или два совпадающих).</li>
-                <li>Если D < 0 — вещественных корней нет.</li>
-            </ul>
-            <p class="article-text">Не забывай про <b>Теорему Виета</b> для приведённого уравнения (когда a = 1): сумма корней равна -b, а произведение равно c.</p>
-        `,
-        geom: `
-            <h1 class="article-title">Площади фигур</h1>
-            <p class="article-text">Основные формулы площадей, которые спасут твои баллы в геометрии:</p>
-            <p class="article-text"><b>1. Треугольник:</b></p>
-            <div class="math-block">S = 0.5 · a · h</div>
-            <p class="article-text"><b>2. Прямоугольник:</b></p>
-            <div class="math-block">S = a · b</div>
-            <p class="article-text"><b>3. Круг:</b></p>
-            <div class="math-block">S = π · R²</div>
-        `
+        trig: `<h1 class="article-title">Тригонометрия</h1><div class="math-block">sin²(x) + cos²(x) = 1</div>`,
+        eq: `<h1 class="article-title">Квадратные уравнения</h1><div class="math-block">D = b² - 4ac</div>`
     };
 
-    // Переключение главных вкладок нижнего таббара
+    const practiceDatabase = {
+        trig: {
+            topicTitle: "Тригонометрия — Задание А4",
+            question: "Укажите значение выражения: sin²(45°) + cos²(45°).",
+            options: ["0.5", "1", "0", "2", "√2"],
+            correctIndex: 1
+        },
+        eq: {
+            topicTitle: "Квадратные уравнения — Задание А4",
+            question: "Среди чисел −1; 2; 1/3; 1; −1/3 укажите то, которое является корнем уравнения 1 − 3x = 2.",
+            options: ["1", "2", "1/3", "-1/3", "-1"],
+            correctIndex: 3
+        }
+    };
+
+    let selectedOptionElement = null;
+    let selectedOptionIndex = null;
+    let currentActiveTopic = null;
+
     function switchTab(screenName, element) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        
         document.getElementById('screen-' + screenName).classList.add('active');
         element.classList.add('active');
         
-        // Если переключаемся с теории, сбрасываем её на список тем
-        if(screenName !== 'theory') {
-            closeTheoryText();
-        }
+        if(screenName !== 'theory') closeTheoryText();
+        if(screenName !== 'practice') closePractice();
     }
 
-    // Открыть текст теории
-    function openTheoryText(topicKey) {
-        // Скрываем список тем
+    function openTheoryText(key) {
         document.getElementById('theory-topics-list').style.display = 'none';
-        
-        // Подставляем текст из базы данных
-        document.getElementById('article-content').innerHTML = theoryDatabase[topicKey];
-        
-        // Показываем блок чтения
+        document.getElementById('article-content').innerHTML = theoryDatabase[key] || 'Конспект пишется...';
         document.getElementById('theory-article-view').style.display = 'block';
     }
-
-    // Вернуться назад к темам
     function closeTheoryText() {
         document.getElementById('theory-article-view').style.display = 'none';
         document.getElementById('theory-topics-list').style.display = 'block';
     }
-</script>
-</body>
-</html>
+
+    function startPractice(topicKey) {
+        currentActiveTopic = topicKey;
+        const taskData = practiceDatabase[topicKey];
+        document.getElementById('practice-topics-list').style.display = 'none';
+        document.getElementById('practice-test-view').style.display = 'block';
+        document.getElementById('test-topic-name').innerText = taskData.topicTitle;
+        document.getElementById('test-question-text').innerText = taskData.question;
+        document.getElementById('test-counter').innerText = "1 / 1";
+        
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.innerText = "Ответить";
+        submitBtn.setAttribute('disabled', 'true');
+        submitBtn.classList.remove('active', 'correct-btn', 'wrong-btn');
+        submitBtn.onclick = submitAnswer;
+
+        const optionsContainer = document.getElementById('test-options-container');
+        optionsContainer.innerHTML = "";
+        selectedOptionElement = null;
+        selectedOptionIndex = null;
+
+        taskData.options.forEach((optionText, index) => {
+            const item = document.createElement('div');
+            item.className = 'option-item';
+            item.onclick = function() { selectOption(item, index); };
+            item.innerHTML = `<div class="radio-circle"></div><div class="option-text">${optionText}</div>`;
+            optionsContainer.appendChild(item);
+        });
+    }
+
+    function selectOption(element, index) {
+        if (document.getElementById('submit-btn').innerText === "Дальше") return;
+        document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedOptionElement = element;
+        selectedOptionIndex = index;
+        const btn = document.getElementById('submit-btn');
+        btn.removeAttribute('disabled');btn.classList.add('active');}function submitAnswer() {const taskData = practiceDatabase[currentActiveTopic];const submitBtn = document.getElementById('submit-btn');const allOptions = document.querySelectorAll('.option-item');if (selectedOptionIndex === taskData.correctIndex) {selectedOptionElement.classList.add('correct-answer');submitBtn.classList.add('correct-btn');submitBtn.innerText = "Правильно! 🎉";} else {selectedOptionElement.classList.add('wrong-answer');allOptions[taskData.correctIndex].classList.add('correct-answer');submitBtn.classList.add('wrong-btn');submitBtn.innerText = "Ошибка ❌";}setTimeout(() => {submitBtn.innerText = "Дальше";submitBtn.className = "btn-submit active";submitBtn.onclick = closePractice;}, 1200);}function closePractice() {document.getElementById('practice-test-view').style.display = 'none';document.getElementById('practice-topics-list').style.display = 'block';}
