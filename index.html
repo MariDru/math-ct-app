@@ -33,92 +33,85 @@
 
     <!-- 2. ЭКРАН: ПРАКТИКА -->
     <div id="screen-practice" class="screen">
+        
+        <!-- ПОД-ЭКРАН А: СПИСОК ТЕМ С НОВЫМ ЗАГОЛОВКОМ -->
         <div id="practice-topics-list">
-            <h2>Практические задания</h2>
-            <div class="practice-topic-card" onclick="startPractice('trig')">
-                <div class="practice-icon-box">🎯</div>
-                <div class="practice-info"><div class="practice-title">Тригонометрия</div><div class="practice-subtitle">Задания А4-А6 уровня ЦТ</div></div>
+            <h2>Погнали! Выбирай тему:</h2>
+            
+            <div class="practice-topic-card" onclick="startPractice('nok')">
+                <div class="practice-icon-box">🔢</div>
+                <div class="practice-info">
+                    <div class="practice-title">Наименьшее общее кратное (НОК)</div>
+                    <div class="practice-subtitle">Разложение чисел и поиск НОК</div>
+                </div>
                 <div class="practice-arrow">➔</div>
             </div>
-            <div class="practice-topic-card" onclick="startPractice('eq')">
-                <div class="practice-icon-box">🎯</div>
-                <div class="practice-info"><div class="practice-title">Квадратные уравнения</div><div class="practice-subtitle">Поиск корней и свойства коэффициентов</div></div>
+
+            <div class="practice-topic-card" onclick="startPractice('geom_square')">
+                <div class="practice-icon-box">📐</div>
+                <div class="practice-info">
+                    <div class="practice-title">Геометрия: Площади с рисунком</div>
+                    <div class="practice-subtitle">Задачи на клетчатой бумаге и чертежи</div>
+                </div>
                 <div class="practice-arrow">➔</div>
             </div>
         </div>
+
+        <!-- ПОД-ЭКРАН Б: ЭКРАН САМОГО ТЕСТА (С поддержкой картинок и подсказок) -->
         <div id="practice-test-view" style="display: none;">
             <div class="back-row">
-                <button class="btn-back" onclick="closePractice()">← Назад</button>
+                <button class="btn-back" onclick="closePractice()">← Назад к темам</button>
                 <div class="test-timer">Режим:<br><b>Тренировка</b></div>
             </div>
+
             <div class="test-subtitle" id="test-topic-name">Тема задания</div>
             <div class="test-question-text" id="test-question-text">Текст вопроса</div>
+
+            <!-- БЛОК ДЛЯ РИСУНКА К ГЕОМЕТРИИ (Будет скрыт, если картинки нет) -->
+            <div id="test-image-container" class="test-image-box" style="display: none;">
+                <img id="test-question-image" src="" alt="Чертеж к задаче">
+            </div>
+
+            <!-- Контейнер для вариантов ответов -->
             <div class="test-options" id="test-options-container"></div>
+
+            <!-- Аккордеон подсказки -->
+            <div class="hint-container">
+                <div class="hint-header" onclick="toggleHint()">Показать подсказку <span id="hint-arrow">⬠</span></div>
+                <div class="hint-content" id="test-hint-text">Здесь будет подсказка к задаче...</div>
+            </div>
+
             <div class="test-footer">
                 <button class="btn-submit" id="submit-btn" disabled onclick="submitAnswer()">Ответить</button>
                 <div class="test-progress-counter" id="test-counter">1 / 1</div>
             </div>
         </div>
+
     </div>
 
-    <!-- 3. ЭКРАН: РЕЙТИНГ (Наполненный) -->
+    <!-- 3. ЭКРАН: РЕЙТИНГ -->
     <div id="screen-rating" class="screen">
         <h2>Таблица лидеров</h2>
         <div class="rating-list">
-            <div class="rating-item top-three">
-                <span class="rating-num">🥇</span>
-                <span class="rating-name">Алексей М.</span>
-                <span class="rating-points">2,900 очков</span>
-            </div>
-            <div class="rating-item top-three">
-                <span class="rating-num">🥈</span>
-                <span class="rating-name">Дмитрий Т.</span>
-                <span class="rating-points">2,650 очков</span>
-            </div>
-            <div class="rating-item top-user">
-                <span class="rating-num">🥉</span>
-                <span class="rating-name">Мария В. (Вы)</span>
-                <span class="rating-points">2,450 очков</span>
-            </div>
-            <div class="rating-item">
-                <span class="rating-num">4</span>
-                <span class="rating-name">Иван К.</span>
-                <span class="rating-points">2,100 очков</span>
-            </div>
-            <div class="rating-item">
-                <span class="rating-num">5</span>
-                <span class="rating-name">Анна Д.</span>
-                <span class="rating-points">1,950 очков</span>
-            </div>
+            <div class="rating-item top-three"><span class="rating-num">🥇</span><span class="rating-name">Алексей М.</span><span class="rating-points">2,900 очков</span></div>
+            <div class="rating-item top-user"><span class="rating-num">🥈</span><span class="rating-name">Мария В. (Вы)</span><span class="rating-points">2,450 очков</span></div>
         </div>
     </div>
 
-    <!-- 4. ЭКРАН: ПРОФИЛЬ + СТАТИСТИКА (Полный контент) -->
+    <!-- 4. ЭКРАН: ПРОФИЛЬ -->
     <div id="screen-profile" class="screen">
         <h2>Мой профиль</h2>
-        
-        <!-- Красивый блок статистики -->
         <div class="profile-stat-box">
-            <div class="circle-wrapper">
-                <div class="circle-text">78%</div>
-            </div>
+            <div class="circle-wrapper"><div class="circle-text">78%</div></div>
             <div class="stat-info-text">
                 <div class="stat-score">✦ 2,450 очков</div>
                 <div style="font-size: 13px; color: #868e96; margin-top: 4px;">Предмет: Математика ЦТ</div>
             </div>
         </div>
-
-        <div class="profile-section-title">Мои активные курсы</div>
-        <div class="profile-course-badge">🚀 Сентябрьский интенсив ЦТ/ЦЭ</div>
-
-        <div class="profile-desc">
-            Если вам нужна помощь по домашним заданиям, теории или вы хотите продлить доступ к курсу, вы можете связаться напрямую со своим куратором.
-        </div>
-        
-        <button class="btn-manager" onclick="window.open('https://t.me', '_blank')">💬 Написать куратору</button>
+        <button class="btn-manager">💬 Написать куратору</button>
     </div>
 
-    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ -->
+    <!-- НИЖНЕЕ МЕНЮ -->
     <div class="nav-bar">
         <div class="nav-item active" onclick="switchTab('theory', this)"><span class="nav-icon">📚</span><span>Теория</span></div>
         <div class="nav-item" onclick="switchTab('practice', this)"><span class="nav-icon">🎯</span><span>Практика</span></div>
@@ -134,18 +127,23 @@
         eq: `<h1 class="article-title">Квадратные уравнения</h1><div class="math-block">D = b² - 4ac</div>`
     };
 
+    // РАСШИРЕННАЯ БАЗА ЗАДАЧ (С картинками и подсказками)
     const practiceDatabase = {
-        trig: {
-            topicTitle: "Тригонометрия — Задание А4",
-            question: "Укажите значение выражения: sin²(45°) + cos²(45°).",
-            options: ["0.5", "1", "0", "2", "√2"],
-            correctIndex: 1
+        nok: {
+            topicTitle: "Задание 1. Числа и вычисления",
+            question: "1. Найдите наименьшее общее кратное (НОК) чисел 18 и 24.",
+            options: ["A. 36", "B. 48", "C. 72", "D. 144"],
+            correctIndex: 2, // Правильный ответ: C. 72
+            hint: "Разложи числа на простые множители: 18 = 2 · 3², 24 = 2³ · 3. Возьми максимальные степени каждого множителя: 2³ · 3² = 8 · 9 = 72.",
+            imageUrl: "" // Нет картинки
         },
-        eq: {
-            topicTitle: "Квадратные уравнения — Задание А4",
-            question: "Среди чисел −1; 2; 1/3; 1; −1/3 укажите то, которое является корнем уравнения 1 − 3x = 2.",
-            options: ["1", "2", "1/3", "-1/3", "-1"],
-            correctIndex: 3
+        geom_square: {
+            topicTitle: "Задание 4. Геометрия на клетке",
+            question: "Найдите площадь заштрихованной фигуры, изображенной на клетчатой бумаге с размером клетки 1х1 см.",
+            options: ["A. 12 см²", "B. 14 см²", "C. 16 см²", "D. 18 см²"],
+            correctIndex: 1, // Допустим, 14
+            hint: "Используй формулу Пика (В + Г/2 - 1) или дострой фигуру до полного прямоугольника и вычти лишние прямоугольные треугольники.",
+            imageUrl: "https://unsplash.com" // Пример тестовой картинки с интернета (потом заменишь на свой чертеж)
         }
     };
 
@@ -173,40 +171,36 @@
         document.getElementById('theory-topics-list').style.display = 'block';
     }
 
+    // ЗАПУСК ПРАКТИКИ ПО ТЕМЕ
     function startPractice(topicKey) {
         currentActiveTopic = topicKey;
         const taskData = practiceDatabase[topicKey];
+        
         document.getElementById('practice-topics-list').style.display = 'none';
         document.getElementById('practice-test-view').style.display = 'block';
+        
         document.getElementById('test-topic-name').innerText = taskData.topicTitle;
         document.getElementById('test-question-text').innerText = taskData.question;
+        document.getElementById('test-hint-text').innerText = taskData.hint;
         document.getElementById('test-counter').innerText = "1 / 1";
         
+        // ПРОВЕРКА НАЛИЧИЯ КАРТИНКИ
+        const imgContainer = document.getElementById('test-image-container');
+        const imgElement = document.getElementById('test-question-image');
+        if (taskData.imageUrl && taskData.imageUrl !== "") {
+            imgElement.src = taskData.imageUrl;
+            imgContainer.style.display = "block"; // Показываем блок картинки
+        } else {
+            imgContainer.style.display = "none"; // Прячем, если картинки нет
+            imgElement.src = "";
+        }
+
+        // Сброс подсказки
+        const hintContent = document.getElementById('hint-content');
+        document.querySelector('.hint-container').classList.remove('open');
+        document.getElementById('hint-arrow').innerText = "⬠";
+
+        // Сброс кнопки ответа
         const submitBtn = document.getElementById('submit-btn');
         submitBtn.innerText = "Ответить";
-        submitBtn.setAttribute('disabled', 'true');
-        submitBtn.classList.remove('active', 'correct-btn', 'wrong-btn');
-        submitBtn.onclick = submitAnswer;
-
-        const optionsContainer = document.getElementById('test-options-container');
-        optionsContainer.innerHTML = "";
-        selectedOptionElement = null;
-        selectedOptionIndex = null;
-
-        taskData.options.forEach((optionText, index) => {
-            const item = document.createElement('div');
-            item.className = 'option-item';
-            item.onclick = function() { selectOption(item, index); };
-            item.innerHTML = `<div class="radio-circle"></div><div class="option-text">${optionText}</div>`;
-            optionsContainer.appendChild(item);
-        });
-    }
-
-    function selectOption(element, index) {
-        if (document.getElementById('submit-btn').innerText === "Дальше") return;
-        document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));
-        element.classList.add('selected');
-        selectedOptionElement = element;
-        selectedOptionIndex = index;
-        const btn = document.getElementById('submit-btn');
-        btn.removeAttribute('disabled');btn.classList.add('active');}function submitAnswer() {const taskData = practiceDatabase[currentActiveTopic];const submitBtn = document.getElementById('submit-btn');const allOptions = document.querySelectorAll('.option-item');if (selectedOptionIndex === taskData.correctIndex) {selectedOptionElement.classList.add('correct-answer');submitBtn.classList.add('correct-btn');submitBtn.innerText = "Правильно! 🎉";} else {selectedOptionElement.classList.add('wrong-answer');allOptions[taskData.correctIndex].classList.add('correct-answer');submitBtn.classList.add('wrong-btn');submitBtn.innerText = "Ошибка ❌";}setTimeout(() => {submitBtn.innerText = "Дальше";submitBtn.className = "btn-submit active";submitBtn.onclick = closePractice;}, 1200);}function closePractice() {document.getElementById('practice-test-view').style.display = 'none';document.getElementById('practice-topics-list').style.display = 'block';}
+        submitBtn.setAttribute('disabled', 'true');submitBtn.classList.remove('active', 'correct-btn', 'wrong-btn');submitBtn.onclick = submitAnswer;// Генерация кнопок вариантовconst optionsContainer = document.getElementById('test-options-container');optionsContainer.innerHTML = "";selectedOptionElement = null;selectedOptionIndex = null;taskData.options.forEach((optionText, index) => {const item = document.createElement('div');item.className = 'option-item';item.onclick = function() { selectOption(item, index); };item.innerHTML = <div class="radio-circle"></div><div class="option-text">${optionText}</div>;optionsContainer.appendChild(item);});}function selectOption(element, index) {if (document.getElementById('submit-btn').innerText === "Дальше") return;document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));element.classList.add('selected');selectedOptionElement = element;selectedOptionIndex = index;const btn = document.getElementById('submit-btn');btn.removeAttribute('disabled');btn.classList.add('active');}function submitAnswer() {const taskData = practiceDatabase[currentActiveTopic];const submitBtn = document.getElementById('submit-btn');const allOptions = document.querySelectorAll('.option-item');if (selectedOptionIndex === taskData.correctIndex) {selectedOptionElement.classList.add('correct-answer');submitBtn.classList.add('correct-btn');submitBtn.innerText = "Правильно! 🎉";} else {selectedOptionElement.classList.add('wrong-answer');allOptions[taskData.correctIndex].classList.add('correct-answer');submitBtn.classList.add('wrong-btn');submitBtn.innerText = "Ошибка ❌";}setTimeout(() => {submitBtn.innerText = "Дальше";submitBtn.className = "btn-submit active";submitBtn.onclick = closePractice;}, 1250);}function toggleHint() {const container = document.querySelector('.hint-container');const arrow = document.getElementById('hint-arrow');container.classList.toggle('open');if(container.classList.contains('open')) {arrow.innerText = "⬩";} else {arrow.innerText = "⬠";}}function closePractice() {document.getElementById('practice-test-view').style.display = 'none';document.getElementById('practice-topics-list').style.display = 'block';}
