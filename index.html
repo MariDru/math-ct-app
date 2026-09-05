@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Тренажер ЦТ</title>
+    <!-- Подключаем файл стилей -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,28 +17,33 @@
             <h2>Учебные материалы</h2>
             <div class="theory-card" onclick="openTheoryText('trig')">
                 <div class="theory-icon">📐</div>
-                <div class="theory-info"><div class="theory-title">Тригонометрические формулы</div><div class="theory-desc">Все формулы приведения, синусы, косинусы и тождества для ЦТ</div></div>
+                <div class="theory-info">
+                    <div class="theory-title">Тригонометрические формулы</div>
+                    <div class="theory-desc">Все формулы приведения, синусы, косинусы и тождества для ЦТ</div>
+                </div>
                 <div class="theory-arrow">➔</div>
             </div>
             <div class="theory-card" onclick="openTheoryText('eq')">
                 <div class="theory-icon">🧮</div>
-                <div class="theory-info"><div class="theory-title">Квадратные уравнения</div><div class="theory-desc">Дискриминант, теорема Виета и свойства коэффициентов</div></div>
+                <div class="theory-info">
+                    <div class="theory-title">Квадратные уравнения</div>
+                    <div class="theory-desc">Дискриминант, теорема Виета и свойства коэффициентов</div>
+                </div>
                 <div class="theory-arrow">➔</div>
             </div>
         </div>
         <div id="theory-article-view" style="display: none;">
-            <div class="theory-back-row"><button class="btn-theory-back" onclick="closeTheoryText()">← Назад к темам</button></div>
+            <div class="theory-back-row">
+                <button class="btn-theory-back" onclick="closeTheoryText()">← Назад к темам</button>
+            </div>
             <div id="article-content"></div>
         </div>
     </div>
 
     <!-- 2. ЭКРАН: ПРАКТИКА -->
     <div id="screen-practice" class="screen">
-        
-        <!-- ПОД-ЭКРАН А: СПИСОК ТЕМ С НОВЫМ ЗАГОЛОВКОМ -->
         <div id="practice-topics-list">
             <h2>Погнали! Выбирай тему:</h2>
-            
             <div class="practice-topic-card" onclick="startPractice('nok')">
                 <div class="practice-icon-box">🔢</div>
                 <div class="practice-info">
@@ -46,7 +52,6 @@
                 </div>
                 <div class="practice-arrow">➔</div>
             </div>
-
             <div class="practice-topic-card" onclick="startPractice('geom_square')">
                 <div class="practice-icon-box">📐</div>
                 <div class="practice-info">
@@ -56,37 +61,31 @@
                 <div class="practice-arrow">➔</div>
             </div>
         </div>
-
-        <!-- ПОД-ЭКРАН Б: ЭКРАН САМОГО ТЕСТА (С поддержкой картинок и подсказок) -->
+        
         <div id="practice-test-view" style="display: none;">
             <div class="back-row">
                 <button class="btn-back" onclick="closePractice()">← Назад к темам</button>
                 <div class="test-timer">Режим:<br><b>Тренировка</b></div>
             </div>
-
-            <div class="test-subtitle" id="test-topic-name">Тема задания</div>
-            <div class="test-question-text" id="test-question-text">Текст вопроса</div>
-
-            <!-- БЛОК ДЛЯ РИСУНКА К ГЕОМЕТРИИ (Будет скрыт, если картинки нет) -->
+            <div class="test-subtitle" id="test-topic-name">Тема</div>
+            <div class="test-question-text" id="test-question-text">Вопрос</div>
+            
             <div id="test-image-container" class="test-image-box" style="display: none;">
-                <img id="test-question-image" src="" alt="Чертеж к задаче">
+                <img id="test-question-image" src="" alt="Чертеж">
             </div>
-
-            <!-- Контейнер для вариантов ответов -->
+            
             <div class="test-options" id="test-options-container"></div>
-
-            <!-- Аккордеон подсказки -->
+            
             <div class="hint-container">
                 <div class="hint-header" onclick="toggleHint()">Показать подсказку <span id="hint-arrow">⬠</span></div>
-                <div class="hint-content" id="test-hint-text">Здесь будет подсказка к задаче...</div>
+                <div class="hint-content" id="test-hint-text">Подсказка...</div>
             </div>
-
+            
             <div class="test-footer">
                 <button class="btn-submit" id="submit-btn" disabled onclick="submitAnswer()">Ответить</button>
                 <div class="test-progress-counter" id="test-counter">1 / 1</div>
             </div>
         </div>
-
     </div>
 
     <!-- 3. ЭКРАН: РЕЙТИНГ -->
@@ -111,7 +110,7 @@
         <button class="btn-manager">💬 Написать куратору</button>
     </div>
 
-    <!-- НИЖНЕЕ МЕНЮ -->
+    <!-- НИЖНИЙ ТАББАР -->
     <div class="nav-bar">
         <div class="nav-item active" onclick="switchTab('theory', this)"><span class="nav-icon">📚</span><span>Теория</span></div>
         <div class="nav-item" onclick="switchTab('practice', this)"><span class="nav-icon">🎯</span><span>Практика</span></div>
@@ -121,86 +120,7 @@
 
 </div>
 
-<script>
-    const theoryDatabase = {
-        trig: `<h1 class="article-title">Тригонометрия</h1><div class="math-block">sin²(x) + cos²(x) = 1</div>`,
-        eq: `<h1 class="article-title">Квадратные уравнения</h1><div class="math-block">D = b² - 4ac</div>`
-    };
-
-    // РАСШИРЕННАЯ БАЗА ЗАДАЧ (С картинками и подсказками)
-    const practiceDatabase = {
-        nok: {
-            topicTitle: "Задание 1. Числа и вычисления",
-            question: "1. Найдите наименьшее общее кратное (НОК) чисел 18 и 24.",
-            options: ["A. 36", "B. 48", "C. 72", "D. 144"],
-            correctIndex: 2, // Правильный ответ: C. 72
-            hint: "Разложи числа на простые множители: 18 = 2 · 3², 24 = 2³ · 3. Возьми максимальные степени каждого множителя: 2³ · 3² = 8 · 9 = 72.",
-            imageUrl: "" // Нет картинки
-        },
-        geom_square: {
-            topicTitle: "Задание 4. Геометрия на клетке",
-            question: "Найдите площадь заштрихованной фигуры, изображенной на клетчатой бумаге с размером клетки 1х1 см.",
-            options: ["A. 12 см²", "B. 14 см²", "C. 16 см²", "D. 18 см²"],
-            correctIndex: 1, // Допустим, 14
-            hint: "Используй формулу Пика (В + Г/2 - 1) или дострой фигуру до полного прямоугольника и вычти лишние прямоугольные треугольники.",
-            imageUrl: "https://unsplash.com" // Пример тестовой картинки с интернета (потом заменишь на свой чертеж)
-        }
-    };
-
-    let selectedOptionElement = null;
-    let selectedOptionIndex = null;
-    let currentActiveTopic = null;
-
-    function switchTab(screenName, element) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-        document.getElementById('screen-' + screenName).classList.add('active');
-        element.classList.add('active');
-        
-        if(screenName !== 'theory') closeTheoryText();
-        if(screenName !== 'practice') closePractice();
-    }
-
-    function openTheoryText(key) {
-        document.getElementById('theory-topics-list').style.display = 'none';
-        document.getElementById('article-content').innerHTML = theoryDatabase[key] || 'Конспект пишется...';
-        document.getElementById('theory-article-view').style.display = 'block';
-    }
-    function closeTheoryText() {
-        document.getElementById('theory-article-view').style.display = 'none';
-        document.getElementById('theory-topics-list').style.display = 'block';
-    }
-
-    // ЗАПУСК ПРАКТИКИ ПО ТЕМЕ
-    function startPractice(topicKey) {
-        currentActiveTopic = topicKey;
-        const taskData = practiceDatabase[topicKey];
-        
-        document.getElementById('practice-topics-list').style.display = 'none';
-        document.getElementById('practice-test-view').style.display = 'block';
-        
-        document.getElementById('test-topic-name').innerText = taskData.topicTitle;
-        document.getElementById('test-question-text').innerText = taskData.question;
-        document.getElementById('test-hint-text').innerText = taskData.hint;
-        document.getElementById('test-counter').innerText = "1 / 1";
-        
-        // ПРОВЕРКА НАЛИЧИЯ КАРТИНКИ
-        const imgContainer = document.getElementById('test-image-container');
-        const imgElement = document.getElementById('test-question-image');
-        if (taskData.imageUrl && taskData.imageUrl !== "") {
-            imgElement.src = taskData.imageUrl;
-            imgContainer.style.display = "block"; // Показываем блок картинки
-        } else {
-            imgContainer.style.display = "none"; // Прячем, если картинки нет
-            imgElement.src = "";
-        }
-
-        // Сброс подсказки
-        const hintContent = document.getElementById('hint-content');
-        document.querySelector('.hint-container').classList.remove('open');
-        document.getElementById('hint-arrow').innerText = "⬠";
-
-        // Сброс кнопки ответа
-        const submitBtn = document.getElementById('submit-btn');
-        submitBtn.innerText = "Ответить";
-        submitBtn.setAttribute('disabled', 'true');submitBtn.classList.remove('active', 'correct-btn', 'wrong-btn');submitBtn.onclick = submitAnswer;// Генерация кнопок вариантовconst optionsContainer = document.getElementById('test-options-container');optionsContainer.innerHTML = "";selectedOptionElement = null;selectedOptionIndex = null;taskData.options.forEach((optionText, index) => {const item = document.createElement('div');item.className = 'option-item';item.onclick = function() { selectOption(item, index); };item.innerHTML = <div class="radio-circle"></div><div class="option-text">${optionText}</div>;optionsContainer.appendChild(item);});}function selectOption(element, index) {if (document.getElementById('submit-btn').innerText === "Дальше") return;document.querySelectorAll('.option-item').forEach(item => item.classList.remove('selected'));element.classList.add('selected');selectedOptionElement = element;selectedOptionIndex = index;const btn = document.getElementById('submit-btn');btn.removeAttribute('disabled');btn.classList.add('active');}function submitAnswer() {const taskData = practiceDatabase[currentActiveTopic];const submitBtn = document.getElementById('submit-btn');const allOptions = document.querySelectorAll('.option-item');if (selectedOptionIndex === taskData.correctIndex) {selectedOptionElement.classList.add('correct-answer');submitBtn.classList.add('correct-btn');submitBtn.innerText = "Правильно! 🎉";} else {selectedOptionElement.classList.add('wrong-answer');allOptions[taskData.correctIndex].classList.add('correct-answer');submitBtn.classList.add('wrong-btn');submitBtn.innerText = "Ошибка ❌";}setTimeout(() => {submitBtn.innerText = "Дальше";submitBtn.className = "btn-submit active";submitBtn.onclick = closePractice;}, 1250);}function toggleHint() {const container = document.querySelector('.hint-container');const arrow = document.getElementById('hint-arrow');container.classList.toggle('open');if(container.classList.contains('open')) {arrow.innerText = "⬩";} else {arrow.innerText = "⬠";}}function closePractice() {document.getElementById('practice-test-view').style.display = 'none';document.getElementById('practice-topics-list').style.display = 'block';}
+<!-- Подключаем файл логики -->
+<script src="script.js"></script>
+</body>
+</html>
