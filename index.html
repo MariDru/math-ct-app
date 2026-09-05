@@ -4,270 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Тренажер ЦТ</title>
-    <style>
-        /* Общие настройки для всего приложения */
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f8f9fa; /* Мягкий светлый фон */
-            color: #000000;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        /* Контейнер-оболочка приложения */
-        .app-container {
-            width: 100%;
-            max-width: 480px; /* Чтобы красиво смотрелось и на ПК, и на телефоне */
-            background: #ffffff;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 16px;
-            padding-bottom: 80px; /* Отступ внизу, чтобы меню не перекрывало контент */
-        }
-
-        h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-top: 5px;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-
-        /* ======================================================== */
-        /* СТИЛИ ЭКРАНА 1: ДОМАШНИЕ ЗАДАНИЯ                       */
-        /* ======================================================== */
-        
-        /* Переключатели вкладок (Предстоящие / Активные / Прошедшие) */
-        .tabs-container {
-            display: flex;
-            background: #f1f3f5;
-            border-radius: 12px;
-            padding: 4px;
-            margin-bottom: 15px;
-        }
-        .tab-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 10px 4px;
-            font-size: 13px;
-            font-weight: 500;
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
-            color: #495057;
-            transition: all 0.2s;
-        }
-        .tab-btn.active {
-            background: #ffffff;
-            color: #000000;
-            font-weight: 600;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        }
-        .tab-count {
-            font-size: 11px;
-            color: #1c7ed6;
-            margin-left: 4px;
-            font-weight: 700;
-        }
-
-        /* Строка с датой открытия и таймером */
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            padding: 0 4px;
-        }
-        .info-date { 
-            font-weight: 600; 
-            color: #212529; 
-        }
-        .info-timer { 
-            color: #1c7ed6; 
-            font-weight: 500; 
-        }
-
-        /* Карточки ДЗ */
-        .task-card {
-            background: #ffffff;
-            border: 1px solid #e9ecef;
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .task-card:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.03);
-        }
-        
-        /* Блок иконки с игральной костью */
-        .task-icon-box {
-            position: relative;
-            margin-right: 16px;
-            background: #f8f9fa;
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #f1f3f5;
-        }
-        .task-icon { 
-            font-size: 24px; 
-        }
-        .task-subcount {
-            position: absolute;
-            bottom: -6px;
-            background: #f1f3f5;
-            border: 1px solid #dee2e6;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 1px 6px;
-            border-radius: 8px;
-            color: #495057;
-        }
-        
-        /* Текстовая информация в карточке */
-        .task-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .task-title { 
-            font-size: 15px; 
-            font-weight: 600; 
-            color: #212529;
-            margin-bottom: 3px; 
-        }
-        .task-subject { 
-            font-size: 12px; 
-            color: #868e96; 
-        }
-
-        /* ======================================================== */
-        /* СТИЛИ НИЖНЕГО МЕНЮ НАВИГАЦИИ (ТАББАР)                    */
-        /* ======================================================== */
-        .nav-bar {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            height: 65px;
-            background: #ffffff;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 9999;
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            cursor: pointer;
-            font-size: 11px;
-            font-weight: 500;
-            flex: 1;
-            height: 100%;
-        }
-        .nav-item.active { 
-            color: #000000; /* Активная кнопка становится черной */
-        }
-        .nav-icon { 
-            font-size: 22px; 
-            margin-bottom: 2px; 
-        }
-    </style>
+    <!-- Подключаем наш внешний файл стилей CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="app-container">
 
-    <!-- Экран 1: Задания -->
-    <h2>Мои домашние задания</h2>
-    
-    <!-- Переключатели вкладок -->
-    <div class="tabs-container">
-        <div class="tab-btn active">Предстоящие <span class="tab-count">11</span></div>
-        <div class="tab-btn">Активные <span class="tab-count" style="color: #495057;">3</span></div>
-        <div class="tab-btn">Прошедшие <span class="tab-count" style="color: #868e96;">0</span></div>
+    <!-- ЭКРАН 1: ЗАДАНИЯ (У него сейчас стоит класс active, поэтому он виден) -->
+    <div id="screen-tasks" class="screen active">
+        <h2>Мои домашние задания</h2>
+        
+        <div class="tabs-container">
+            <div class="tab-btn active">Предстоящие <span class="tab-count">11</span></div>
+            <div class="tab-btn">Активные <span class="tab-count" style="color: #495057;">3</span></div>
+            <div class="tab-btn">Прошедшие <span class="tab-count" style="color: #868e96;">0</span></div>
+        </div>
+
+        <div class="info-row">
+            <div>Откроется <span class="info-date">7 сентября, 19:00</span></div>
+            <div class="info-timer">2 дня и 07:01:03</div>
+        </div>
+        
+        <div class="task-card">
+            <div class="task-icon-box">
+                <span class="task-icon">🎲</span>
+                <span class="task-subcount">40</span>
+            </div>
+            <div class="task-info">
+                <div class="task-title">ДЗ 3. Сентябрьский курс</div>
+                <div class="task-subject">Математика</div>
+            </div>
+        </div>
+
+        <div class="task-card">
+            <div class="task-icon-box">
+                <span class="task-icon">🎲</span>
+                <span class="task-subcount">39</span>
+            </div>
+            <div class="task-info">
+                <div class="task-title">Доп. 3. Сентябрьский курс</div>
+                <div class="task-subject">Математика</div>
+            </div>
+        </div>
+
+        <div class="info-row" style="margin-top: 10px;">
+            <div>Откроется <span class="info-date">9 сентября, 19:00</span></div>
+            <div class="info-timer">4 дня и 07:01:03</div>
+        </div>
+        
+        <div class="task-card">
+            <div class="task-icon-box">
+                <span class="task-icon">🎲</span>
+                <span class="task-subcount">28</span>
+            </div>
+            <div class="task-info">
+                <div class="task-title">ДЗ 4. Сентябрьский курс</div>
+                <div class="task-subject">Математика</div>
+            </div>
+        </div>
     </div>
 
-    <!-- Блок заданий от 7 сентября -->
-    <div class="info-row">
-        <div>Откроется <span class="info-date">7 сентября, 19:00</span></div>
-        <div class="info-timer">2 дня и 07:01:03</div>
-    </div>
-    
-    <div class="task-card">
-        <div class="task-icon-box">
-            <span class="task-icon">🎲</span>
-            <span class="task-subcount">40</span>
-        </div>
-        <div class="task-info">
-            <div class="task-title">ДЗ 3. Сентябрьский курс</div>
-            <div class="task-subject">Математика</div>
-        </div>
-    </div>
+    <!-- Будущие пустые контейнеры для остальных экранов (пока без контента) -->
+    <div id="screen-chats" class="screen"></div>
+    <div id="screen-statistics" class="screen"></div>
+    <div id="screen-profile" class="screen"></div>
 
-    <div class="task-card">
-        <div class="task-icon-box">
-            <span class="task-icon">🎲</span>
-            <span class="task-subcount">39</span>
-        </div>
-        <div class="task-info">
-            <div class="task-title">Доп. 3. Сентябрьский курс</div>
-            <div class="task-subject">Математика</div>
-        </div>
-    </div>
-
-    <!-- Блок заданий от 9 сентября -->
-    <div class="info-row" style="margin-top: 10px;">
-        <div>Откроется <span class="info-date">9 сентября, 19:00</span></div>
-        <div class="info-timer">4 дня и 07:01:03</div>
-    </div>
-    
-    <div class="task-card">
-        <div class="task-icon-box">
-            <span class="task-icon">🎲</span>
-            <span class="task-subcount">28</span>
-        </div>
-        <div class="task-info">
-            <div class="task-title">ДЗ 4. Сентябрьский курс</div>
-            <div class="task-subject">Математика</div>
-        </div>
-    </div>
-
-    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ -->
+    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ (ТАББАР) -->
     <div class="nav-bar">
-        <div class="nav-item active"><span class="nav-icon">📅</span><span>Задания</span></div>
-        <div class="nav-item"><span class="nav-icon">💬</span><span>Чаты</span></div>
-        <div class="nav-item"><span class="nav-icon">✦</span><span>Статистика</span></div>
-        <div class="nav-item"><span class="nav-icon">👤</span><span>Профиль</span></div>
+        <div class="nav-item active" onclick="switchTab('tasks', this)">
+            <span class="nav-icon">📅</span><span>Задания</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('chats', this)">
+            <span class="nav-icon">💬</span><span>Чаты</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('statistics', this)">
+            <span class="nav-icon">✦</span><span>Статистика</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('profile', this)">
+            <span class="nav-icon">👤</span><span>Профиль</span>
+        </div>
     </div>
 
 </div>
+
+<script>
+    // Простой скрипт для переключения экранов
+    function switchTab(screenName, element) {
+        // 1. Прячем вообще все блоки с классом .screen
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        // 2. Делаем серыми все иконки в меню
+        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+        
+        // 3. Показываем именно тот экран, на который нажали
+        document.getElementById('screen-' + screenName).classList.add('active');
+        // 4. Подсвечиваем нажатую иконку черным цветом
+        element.classList.add('active');
+    }
+</script>
 
 </body>
 </html>
