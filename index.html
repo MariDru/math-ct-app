@@ -2,170 +2,272 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тренажер ЦТ по математике</title>
-    <script src="https://telegram.org"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Тренажер ЦТ</title>
     <style>
+        /* Общие настройки для всего приложения */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f6f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa; /* Мягкий светлый фон */
+            color: #000000;
             margin: 0;
-            padding: 15px;
-            color: #333;
-            padding-bottom: 80px; /* Место для нижнего меню */
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
         }
-        h2 { font-size: 20px; margin-bottom: 20px; }
+
+        /* Контейнер-оболочка приложения */
+        .app-container {
+            width: 100%;
+            max-width: 480px; /* Чтобы красиво смотрелось и на ПК, и на телефоне */
+            background: #ffffff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 16px;
+            padding-bottom: 80px; /* Отступ внизу, чтобы меню не перекрывало контент */
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        /* ======================================================== */
+        /* СТИЛИ ЭКРАНА 1: ДОМАШНИЕ ЗАДАНИЯ                       */
+        /* ======================================================== */
         
-        /* Стили главного экрана (список ДЗ) */
-        .card {
-            background: white; border-radius: 12px; padding: 15px;
-            margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            display: flex; justify-content: space-between; align-items: center;
+        /* Переключатели вкладок (Предстоящие / Активные / Прошедшие) */
+        .tabs-container {
+            display: flex;
+            background: #f1f3f5;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 15px;
         }
-        .card-info { display: flex; align-items: center; gap: 12px; }
-        .card-icon { font-size: 24px; background: #eef2f7; padding: 10px; border-radius: 50%; }
-        .card-title { font-weight: bold; font-size: 16px; margin-bottom: 4px; }
-        .card-subtitle { font-size: 12px; color: #777; }
-        .btn-start { background-color: #3182ce; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 500; }
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 10px 4px;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            color: #495057;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #ffffff;
+            color: #000000;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .tab-count {
+            font-size: 11px;
+            color: #1c7ed6;
+            margin-left: 4px;
+            font-weight: 700;
+        }
 
-        /* ЭКРАН ТЕСТА (Изначально скрыт) */
-        .screen { display: none; }
-        .screen.active { display: block; }
+        /* Строка с датой открытия и таймером */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            padding: 0 4px;
+        }
+        .info-date { 
+            font-weight: 600; 
+            color: #212529; 
+        }
+        .info-timer { 
+            color: #1c7ed6; 
+            font-weight: 500; 
+        }
+
+        /* Карточки ДЗ */
+        .task-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .task-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.03);
+        }
         
-        .math-task {
-            background: white; border-radius: 12px; padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px;
+        /* Блок иконки с игральной костью */
+        .task-icon-box {
+            position: relative;
+            margin-right: 16px;
+            background: #f8f9fa;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f1f3f5;
         }
-        .task-header { font-size: 14px; color: #777; margin-bottom: 10px; font-weight: bold; }
-        .task-text { font-size: 18px; line-height: 1.5; margin-bottom: 20px; }
+        .task-icon { 
+            font-size: 24px; 
+        }
+        .task-subcount {
+            position: absolute;
+            bottom: -6px;
+            background: #f1f3f5;
+            border: 1px solid #dee2e6;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 8px;
+            color: #495057;
+        }
         
-        /* Стили для части А (варианты ответов) */
-        .options-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .option-btn {
-            background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px;
-            padding: 12px; text-align: left; font-size: 16px; cursor: pointer; transition: 0.2s;
+        /* Текстовая информация в карточке */
+        .task-info {
+            display: flex;
+            flex-direction: column;
         }
-        .option-btn:hover { border-color: #3182ce; background: #ebf8ff; }
-        .option-btn.selected { border-color: #3182ce; background: #3182ce; color: white; }
-
-        /* Кнопки управления тестом */
-        .btn-action {
-            width: 100%; background-color: #48bb78; color: white; border: none;
-            padding: 14px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer;
+        .task-title { 
+            font-size: 15px; 
+            font-weight: 600; 
+            color: #212529;
+            margin-bottom: 3px; 
         }
-        .btn-back {
-            background-color: #e2e8f0; color: #4a5568; margin-top: 10px;
+        .task-subject { 
+            font-size: 12px; 
+            color: #868e96; 
         }
 
-        /* Результат проверки */
-        .result-message {
-            margin-top: 15px; padding: 12px; border-radius: 8px; display: none; font-weight: bold; text-align: center;
-        }
-        .result-message.correct { display: block; background: #c6f6d5; color: #22543d; }
-        .result-message.wrong { display: block; background: #fed7d7; color: #742a2a; }
-
-        /* Нижнее меню навигации */
+        /* ======================================================== */
+        /* СТИЛИ НИЖНЕГО МЕНЮ НАВИГАЦИИ (ТАББАР)                    */
+        /* ======================================================== */
         .nav-bar {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: white; display: flex; justify-content: space-around;
-            padding: 10px 0; border-top: 1px solid #eee; z-index: 100;
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            height: 65px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 9999;
         }
-        .nav-item { text-align: center; font-size: 11px; color: #777; text-decoration: none; }
-        .nav-item.active { color: #3182ce; font-weight: bold; }
-        .nav-icon { display: block; font-size: 20px; margin-bottom: 2px; }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            flex: 1;
+            height: 100%;
+        }
+        .nav-item.active { 
+            color: #000000; /* Активная кнопка становится черной */
+        }
+        .nav-icon { 
+            font-size: 22px; 
+            margin-bottom: 2px; 
+        }
     </style>
 </head>
 <body>
 
-    <!-- ЭКРАН 1: СПИСОК ЗАДАНИЙ -->
-    <div id="screen-main" class="screen active">
-        <h2>Мои домашние задания</h2>
-        <div class="card">
-            <div class="card-info">
-                <div class="card-icon">🎲</div>
-                <div>
-                    <div class="card-title">ДЗ 1. Линейные уравнения</div>
-                    <div class="card-subtitle">Математика • Часть А</div>
-                </div>
-            </div>
-            <button class="btn-start" onclick="showScreen('screen-test')">Начать</button>
+<div class="app-container">
+
+    <!-- Экран 1: Задания -->
+    <h2>Мои домашние задания</h2>
+    
+    <!-- Переключатели вкладок -->
+    <div class="tabs-container">
+        <div class="tab-btn active">Предстоящие <span class="tab-count">11</span></div>
+        <div class="tab-btn">Активные <span class="tab-count" style="color: #495057;">3</span></div>
+        <div class="tab-btn">Прошедшие <span class="tab-count" style="color: #868e96;">0</span></div>
+    </div>
+
+    <!-- Блок заданий от 7 сентября -->
+    <div class="info-row">
+        <div>Откроется <span class="info-date">7 сентября, 19:00</span></div>
+        <div class="info-timer">2 дня и 07:01:03</div>
+    </div>
+    
+    <div class="task-card">
+        <div class="task-icon-box">
+            <span class="task-icon">🎲</span>
+            <span class="task-subcount">40</span>
+        </div>
+        <div class="task-info">
+            <div class="task-title">ДЗ 3. Сентябрьский курс</div>
+            <div class="task-subject">Математика</div>
         </div>
     </div>
 
-    <!-- ЭКРАН 2: САМ ТЕСТ (ЧАСТЬ А) -->
-    <div id="screen-test" class="screen">
-        <h2>Прохождение ДЗ</h2>
-        <div class="math-task">
-            <div class="task-header">Задание А1</div>
-            <div class="task-text">
-                Найдите корень уравнения:<br>
-                <b>3x - 7 = 5</b>
-            </div>
-            
-            <!-- Варианты ответов (ЦТ стиль) -->
-            <div class="options-container">
-                <button class="option-btn" onclick="selectOption(this, 1)">1)  x = 2</button>
-                <button class="option-btn" onclick="selectOption(this, 2)">2)  x = -4</button>
-                <button class="option-btn" onclick="selectOption(this, 3)">3)  x = 4</button>
-                <button class="option-btn" onclick="selectOption(this, 4)">4)  x = 0</button>
-            </div>
-
-            <button class="btn-action" onclick="checkAnswer()">Проверить ответ</button>
-            <div id="result" class="result-message"></div>
-            
-            <button class="btn-action btn-back" onclick="showScreen('screen-main')">Назад к списку</button>
+    <div class="task-card">
+        <div class="task-icon-box">
+            <span class="task-icon">🎲</span>
+            <span class="task-subcount">39</span>
+        </div>
+        <div class="task-info">
+            <div class="task-title">Доп. 3. Сентябрьский курс</div>
+            <div class="task-subject">Математика</div>
         </div>
     </div>
 
-    <!-- МЕНЮ НАВИГАЦИИ -->
+    <!-- Блок заданий от 9 сентября -->
+    <div class="info-row" style="margin-top: 10px;">
+        <div>Откроется <span class="info-date">9 сентября, 19:00</span></div>
+        <div class="info-timer">4 дня и 07:01:03</div>
+    </div>
+    
+    <div class="task-card">
+        <div class="task-icon-box">
+            <span class="task-icon">🎲</span>
+            <span class="task-subcount">28</span>
+        </div>
+        <div class="task-info">
+            <div class="task-title">ДЗ 4. Сентябрьский курс</div>
+            <div class="task-subject">Математика</div>
+        </div>
+    </div>
+
+    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ -->
     <div class="nav-bar">
-        <a href="#" class="nav-item active"><span class="nav-icon">📅</span>Задания</a>
-        <a href="#" class="nav-item"><span class="nav-icon">💬</span>Чаты</a>
-        <a href="#" class="nav-item"><span class="nav-icon">📈</span>Статистика</a>
-        <a href="#" class="nav-item"><span class="nav-icon">👤</span>Профиль</a>
+        <div class="nav-item active"><span class="nav-icon">📅</span><span>Задания</span></div>
+        <div class="nav-item"><span class="nav-icon">💬</span><span>Чаты</span></div>
+        <div class="nav-item"><span class="nav-icon">✦</span><span>Статистика</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span>Профиль</span></div>
     </div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
+</div>
 
-        let selectedAnswer = null;
-        const correctAnswer = 3; // Правильный ответ: 3) x = 4
-
-        // Функция переключения экранов
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classWith = 'screen active';
-            // Сбрасываем старые результаты при переходе
-            selectedAnswer = null;
-            document.getElementById('result').className = 'result-message';
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-        }
-
-        // Выбор варианта ответа
-        function selectOption(element, optionIndex) {
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedAnswer = optionIndex;
-        }
-
-        // Проверка ответа
-        function checkAnswer() {
-            const resultDiv = document.getElementById('result');
-            if (selectedAnswer === null) {
-                alert("Пожалуйста, выберите вариант ответа!");
-                return;
-            }
-
-            if (selectedAnswer === correctAnswer) {
-                resultDiv.innerText = "🎉 Правильно! Отличный результат.";
-                resultDiv.className = "result-message correct";
-            } else {
-                resultDiv.innerText = "❌ Неверно. Попробуй еще раз или посмотри теорию.";
-                resultDiv.className = "result-message wrong";
-            }
-        }
-    </script>
 </body>
 </html>
