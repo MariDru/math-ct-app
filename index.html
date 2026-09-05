@@ -10,23 +10,51 @@
 
 <div class="app-container">
 
-    <!-- 1. ЭКРАН: ТЕОРИЯ (По умолчанию активный при старте) -->
+    <!-- 1. ЭКРАН: ТЕОРИЯ -->
     <div id="screen-theory" class="screen active">
-        <h2>Учебные материалы</h2>
-        <div class="theory-card">
-            <div class="theory-icon">📖</div>
-            <div class="theory-info">
-                <div class="theory-title">Тригонометрические формулы</div>
-                <div class="theory-desc">Все формулы приведения, синусы и косинусы для ЦТ</div>
+        
+        <!-- ПОД-ЭКРАН А: СПИСОК ТЕМ (Виден изначально) -->
+        <div id="theory-topics-list">
+            <h2>Учебные материалы</h2>
+            
+            <div class="theory-card" onclick="openTheoryText('trig')">
+                <div class="theory-icon">📐</div>
+                <div class="theory-info">
+                    <div class="theory-title">Тригонометрические формулы</div>
+                    <div class="theory-desc">Все формулы приведения, синусы, косинусы и тождества для ЦТ</div>
+                </div>
+                <div class="theory-arrow">➔</div>
+            </div>
+            
+            <div class="theory-card" onclick="openTheoryText('eq')">
+                <div class="theory-icon">🧮</div>
+                <div class="theory-info">
+                    <div class="theory-title">Квадратные уравнения</div>
+                    <div class="theory-desc">Дискриминант, теорема Виета и свойства коэффициентов</div>
+                </div>
+                <div class="theory-arrow">➔</div>
+            </div>
+            
+            <div class="theory-card" onclick="openTheoryText('geom')">
+                <div class="theory-icon">📐</div>
+                <div class="theory-info">
+                    <div class="theory-title">Площади фигур</div>
+                    <div class="theory-desc">Формулы площадей треугольников, четырехугольников и круга</div>
+                </div>
+                <div class="theory-arrow">➔</div>
             </div>
         </div>
-        <div class="theory-card">
-            <div class="theory-icon">🎥</div>
-            <div class="theory-info">
-                <div class="theory-title">Видеоразбор: Квадратные уравнения</div>
-                <div class="theory-desc">Смотреть урок (15 минут)</div>
+
+        <!-- ПОД-ЭКРАН Б: ЧТЕНИЕ ТЕКСТА СТАТЬИ (По умолчанию скрыт) -->
+        <div id="theory-article-view" style="display: none;">
+            <div class="theory-back-row">
+                <button class="btn-theory-back" onclick="closeTheoryText()">← Назад к темам</button>
             </div>
+            
+            <!-- Сюда JavaScript будет подставлять нужный текст конспекта -->
+            <div id="article-content"></div>
         </div>
+
     </div>
 
     <!-- 2. ЭКРАН: ПРАКТИКА -->
@@ -65,38 +93,25 @@
                 <span class="rating-name">Иван К.</span>
                 <span class="rating-points">2100 очков</span>
             </div>
-            <div class="rating-item">
-                <span class="rating-num">3</span>
-                <span class="rating-name">Анна Д.</span>
-                <span class="rating-points">1950 очков</span>
-            </div>
         </div>
     </div>
 
     <!-- 4. ЭКРАН: ПРОФИЛЬ + СТАТИСТИКА -->
     <div id="screen-profile" class="screen">
         <h2>Мой профиль</h2>
-        
-        <!-- Блок статистики внутри профиля -->
         <div class="profile-stat-box">
-            <div class="circle-wrapper">
-                <div class="circle-text">78%</div>
-            </div>
+            <div class="circle-wrapper"><div class="circle-text">78%</div></div>
             <div class="stat-info-text">
                 <div class="stat-score">✦ 1,450 очков всего</div>
                 <div style="font-size: 13px; color: #868e96; margin-top: 4px;">Курс: Математика ЦТ</div>
             </div>
         </div>
-
         <div class="profile-title">Мои активные курсы</div>
-        <ul class="profile-list">
-            <li>Математика (Сентябрьский поток)</li>
-        </ul>
-        
+        <ul class="profile-list"><li>Математика (Сентябрьский поток)</li></ul>
         <button class="btn-manager">Написать куратору</button>
     </div>
 
-    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ (Слева направо: Теория, Практика, Рейтинг, Профиль) -->
+    <!-- НИЖНЕЕ МЕНЮ НАВИГАЦИИ -->
     <div class="nav-bar">
         <div class="nav-item active" onclick="switchTab('theory', this)">
             <span class="nav-icon">📚</span><span>Теория</span>
@@ -115,12 +130,70 @@
 </div>
 
 <script>
+    // База данных конспектов
+    const theoryDatabase = {
+        trig: `
+            <h1 class="article-title">Тригонометрические формулы</h1>
+            <p class="article-text">Тригонометрия в ЦТ встречается в каждом третьем тесте. Основное, что нужно железно знать — это <b>Основное тригонометрическое тождество:</b></p>
+            <div class="math-block">sin²(x) + cos²(x) = 1</div>
+            <p class="article-text"><b>Формулы двойного угла:</b></p>
+            <div class="math-block">sin(2x) = 2 · sin(x) · cos(x)<br>cos(2x) = cos²(x) - sin²(x)</div>
+            <p class="article-text">Совет для ЦТ: если видишь большие градусы (например, 120° или 300°), всегда используй <i>формулы приведения</i>, чтобы свести их к острым углам.</p>
+        `,
+        eq: `
+            <h1 class="article-title">Квадратные уравнения</h1>
+            <p class="article-text">Для стандартного уравнения вида <b>ax² + bx + c = 0</b> корни ищутся через дискриминант:</p>
+            <div class="math-block">D = b² - 4ac</div>
+            <p class="article-text"><b>Количество корней:</b></p>
+            <ul>
+                <li>Если D > 0 — два разных корня.</li>
+                <li>Если D = 0 — один корень (или два совпадающих).</li>
+                <li>Если D < 0 — вещественных корней нет.</li>
+            </ul>
+            <p class="article-text">Не забывай про <b>Теорему Виета</b> для приведённого уравнения (когда a = 1): сумма корней равна -b, а произведение равно c.</p>
+        `,
+        geom: `
+            <h1 class="article-title">Площади фигур</h1>
+            <p class="article-text">Основные формулы площадей, которые спасут твои баллы в геометрии:</p>
+            <p class="article-text"><b>1. Треугольник:</b></p>
+            <div class="math-block">S = 0.5 · a · h</div>
+            <p class="article-text"><b>2. Прямоугольник:</b></p>
+            <div class="math-block">S = a · b</div>
+            <p class="article-text"><b>3. Круг:</b></p>
+            <div class="math-block">S = π · R²</div>
+        `
+    };
+
+    // Переключение главных вкладок нижнего таббара
     function switchTab(screenName, element) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
         
         document.getElementById('screen-' + screenName).classList.add('active');
         element.classList.add('active');
+        
+        // Если переключаемся с теории, сбрасываем её на список тем
+        if(screenName !== 'theory') {
+            closeTheoryText();
+        }
+    }
+
+    // Открыть текст теории
+    function openTheoryText(topicKey) {
+        // Скрываем список тем
+        document.getElementById('theory-topics-list').style.display = 'none';
+        
+        // Подставляем текст из базы данных
+        document.getElementById('article-content').innerHTML = theoryDatabase[topicKey];
+        
+        // Показываем блок чтения
+        document.getElementById('theory-article-view').style.display = 'block';
+    }
+
+    // Вернуться назад к темам
+    function closeTheoryText() {
+        document.getElementById('theory-article-view').style.display = 'none';
+        document.getElementById('theory-topics-list').style.display = 'block';
     }
 </script>
 </body>
